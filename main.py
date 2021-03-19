@@ -12,9 +12,7 @@ from sqlalchemy.orm import relationship
 from datetime import date
 
 import smtplib
-
-OWN_EMAIL = "jisungsharu@gmail.com"
-OWN_PASSWORD = "wltjd@6230"
+import SMTP_RESOURCE
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -117,8 +115,8 @@ def send_email(name, email, phone, message):
     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
-        connection.login(OWN_EMAIL, OWN_PASSWORD)
-        connection.sendmail(OWN_EMAIL, OWN_EMAIL, email_message)
+        connection.login(SMTP_RESOURCE.OWN_EMAIL, SMTP_RESOURCE.OWN_PASSWORD)
+        connection.sendmail(SMTP_RESOURCE.OWN_EMAIL, SMTP_RESOURCE.OWN_EMAIL, email_message)
 
 
 @app.route("/post/<int:post_id>", methods=["GET","POST"])
